@@ -257,10 +257,11 @@ export function ChannelCylinder({ channels }: { channels: ChannelLite[] }) {
       {/* Fallback: horizontal snap carousel (small screens and reduced motion) */}
       <div className="cyl-flat" role="region" aria-roledescription="carousel" aria-label={`${n} media channels`}>
         <ul className="cyl-flat-track">
-          {channels.map((c, idx) => (
+          {channels.map((c) => (
             <li key={c.slug} className="cyl-flat-item">
               <a href={`/channels/${c.slug}`} aria-label={`${c.name}: explore`} className="block" onClick={(e) => { e.preventDefault(); navigate(`/channels/${c.slug}`, { from: e.currentTarget }); }}>
-                <PosterCard channel={c} sizes="(max-width:767px) 58vw, 220px" priority={idx < 2} />
+                {/* Mobile shows glyph posters instead of photos so the headline stays the LCP element. */}
+                <PosterCard channel={c.posterStyle === 'photo-duotone' ? { ...c, posterStyle: 'glyph-poster' } : c} sizes="(max-width:767px) 44vw, 200px" />
               </a>
             </li>
           ))}

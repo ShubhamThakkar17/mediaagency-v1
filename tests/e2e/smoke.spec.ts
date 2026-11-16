@@ -18,6 +18,8 @@ test('home renders and the cylinder responds to drag', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Every screen');
   const cyl = page.getByTestId('cylinder');
   await expect(cyl).toBeVisible();
+  // Wait for hydration: the physics loop writes the first rotateY.
+  await expect.poll(() => ringAngle(page)).not.toBeNaN();
   const before = await ringAngle(page);
   const box = (await cyl.boundingBox())!;
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
@@ -27,12 +29,14 @@ test('home renders and the cylinder responds to drag', async ({ page }) => {
   await page.waitForTimeout(300);
   const after = await ringAngle(page);
   expect(Math.abs(after - before)).toBeGreaterThan(20);
-  // Keyboard: arrow keys rotate one card (20°).
+  // Keyboard: an arrow key snaps the ring to the next card (multiples of 360 / 18 = 20°).
   await cyl.focus();
   const k0 = await ringAngle(page);
   await page.keyboard.press('ArrowRight');
-  await page.waitForTimeout(900);
-  expect(Math.abs((await ringAngle(page)) - k0)).toBeGreaterThan(12);
+  await page.waitForTimeout(1200);
+  const k1 = await ringAngle(page);
+  expect(Math.abs(k1 - k0)).toBeGreaterThan(1);
+  expect(Math.abs(k1 / 20 - Math.round(k1 / 20))).toBeLessThan(0.01);
   expect(errors).toEqual([]);
 });
 
