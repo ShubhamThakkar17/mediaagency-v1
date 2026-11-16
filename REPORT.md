@@ -56,6 +56,6 @@ What remains is mostly main-thread JavaScript from the motion stack (GSAP with f
 
 ## Notes
 
-- **No pull request was opened.** In this environment a PR needs your explicit go-ahead. The work is all on the branch. Ask, and I will open "Media360 v1: full site build".
+- **No pull request was opened.** The repo was empty, so the build branch `claude/serene-feynman-cc9px7` became its only and default branch, and there is no `main` to open a PR against. I am not allowed to push other branches here. To keep a `main`, create it from this branch on GitHub (Branches → New branch); a PR is only needed for future work.
 - `qa/screenshots/` has desktop and mobile home captures, inner pages, both planner modes and the two theme presets. Full-page captures of very tall pages sometimes repeat a tile near the bottom. That is a Chromium capture artifact; the pages themselves are fine.
 - Run everything locally with `pnpm install && pnpm check`, then `pnpm test:e2e`.

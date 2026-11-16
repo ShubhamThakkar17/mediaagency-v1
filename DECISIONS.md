@@ -3,7 +3,7 @@
 One line per judgement call made during the build, with the reason.
 
 ## Process and tooling
-- **Branch:** worked on `claude/serene-feynman-cc9px7` because this environment only allows pushes to that branch. No PR was opened: a PR needs your go-ahead in this environment (brief §14.1 assumed one).
+- **Branch:** worked on `claude/serene-feynman-cc9px7` because this environment only allows pushes to that branch. It is the repo's only (default) branch, so there was no base branch for the PR in brief §14.1.
 - **Next.js 15.5 + React 19, TypeScript 5.9:** TypeScript 7 was the npm default but is too new for the Next 15 toolchain, so I pinned 5.9.
 - **Playwright pinned to the pre-installed browser build (1.63)** so tests run without downloading browsers.
 - **Dev-only pages use the `.dev.tsx` extension** (`/admin/glyphs`, `/admin/data-audit`). `next.config.ts` drops that extension from `pageExtensions` in production, so they never ship.
