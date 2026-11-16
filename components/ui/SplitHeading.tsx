@@ -11,10 +11,11 @@ type Props = {
   immediate?: boolean;
   delay?: number;
   by?: 'lines' | 'words';
+  id?: string;
 };
 
 /** Headline reveal: lines mask up with a 0.06 s stagger (BRIEF §7.1). */
-export function SplitHeading({ as = 'h2', children, className, immediate, delay = 0, by = 'lines' }: Props) {
+export function SplitHeading({ as = 'h2', children, className, immediate, delay = 0, by = 'lines', id }: Props) {
   const ref = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -47,5 +48,5 @@ export function SplitHeading({ as = 'h2', children, className, immediate, delay 
     { scope: ref },
   );
 
-  return createElement(as, { ref, className: cn('display', className) }, children);
+  return createElement(as, { ref, id, className: cn('display', className) }, children);
 }

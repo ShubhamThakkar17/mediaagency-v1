@@ -8,19 +8,20 @@ type Props = {
   lede?: ReactNode;
   align?: 'left' | 'center';
   as?: 'h1' | 'h2';
-  size?: 'h-1' | 'h-2';
+  size?: 't-1' | 't-2';
   className?: string;
   children?: ReactNode;
+  id?: string;
 };
 
 /** Orange pill label + big tight headline + optional lede. Used above every section. */
-export function SectionHeading({ label, title, lede, align = 'left', as = 'h2', size = 'h-2', className, children }: Props) {
+export function SectionHeading({ label, title, lede, align = 'left', as = 'h2', size = 't-2', className, children, id }: Props) {
   return (
     <div className={cn('flex flex-col gap-6', align === 'center' && 'items-center text-center', className)}>
       <span className="pill-label" data-reveal="fade">
         {label}
       </span>
-      <SplitHeading as={as} className={cn(size, align === 'center' ? 'max-w-[18ch]' : 'max-w-[16ch]')}>
+      <SplitHeading as={as} id={id} className={cn(size, align === 'center' ? 'max-w-[18ch]' : 'max-w-[16ch]')}>
         {title}
       </SplitHeading>
       {lede ? (

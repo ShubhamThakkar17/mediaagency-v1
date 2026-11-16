@@ -22,7 +22,7 @@ export function Footer() {
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <span className="pill-label">{copy.footer.kicker}</span>
-            <h2 className="display h-2 mt-6 max-w-[14ch] text-white">
+            <h2 className="display t-2 mt-6 max-w-[14ch] text-white">
               <Emph text={copy.footer.headline} />
             </h2>
           </div>

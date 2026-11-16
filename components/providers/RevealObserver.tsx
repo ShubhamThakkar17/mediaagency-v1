@@ -10,11 +10,14 @@ export function RevealObserver() {
   const pathname = usePathname();
   useEffect(() => {
     const seen = new WeakSet<Element>();
+    // A fully clipped element reports no intersection, so clip reveals observe their parent.
+    const proxies = new WeakMap<Element, Element>();
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
           if (e.isIntersecting) {
-            e.target.classList.add('is-in');
+            const el = proxies.get(e.target) ?? e.target;
+            el.classList.add('is-in');
             io.unobserve(e.target);
           }
         }
@@ -25,7 +28,9 @@ export function RevealObserver() {
       document.querySelectorAll('[data-reveal]:not(.is-in)').forEach((el) => {
         if (!seen.has(el)) {
           seen.add(el);
-          io.observe(el);
+          const target = el.getAttribute('data-reveal') === 'clip' && el.parentElement ? el.parentElement : el;
+          if (target !== el) proxies.set(target, el);
+          io.observe(target);
         }
       });
     };

@@ -79,16 +79,16 @@ button {
 .display strong {
   font-weight: 700;
 }
-.h-hero {
+.t-hero {
   font-size: clamp(2.75rem, 8.2vw, 7.5rem);
 }
-.h-1 {
+.t-1 {
   font-size: clamp(2.5rem, 6.2vw, 5.5rem);
 }
-.h-2 {
+.t-2 {
   font-size: clamp(2.1rem, 4.6vw, 4rem);
 }
-.h-3 {
+.t-3 {
   font-size: clamp(1.5rem, 2.6vw, 2.25rem);
   line-height: 1.05;
 }
@@ -531,4 +531,94 @@ html.no-preload #preloader {
   #preloader {
     display: none !important;
   }
+}
+
+/* ---------- Preloader failsafe and hero entrance ---------- */
+#preloader {
+  animation: preloader-failsafe 0.01s linear 4s forwards;
+}
+@keyframes preloader-failsafe {
+  to {
+    visibility: hidden;
+  }
+}
+.hero-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.hero-word > span {
+  display: inline-block;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.no-preload .hero-word > span,
+  html.preload-done .hero-word > span {
+    animation: hero-rise 1s var(--ease-out-expo) both;
+    animation-delay: calc(var(--i) * 70ms + var(--hero-delay, 0ms));
+  }
+  html.preload-done:not(.no-preload) {
+    --hero-delay: 150ms;
+  }
+  html.no-preload .hero-fade,
+  html.preload-done .hero-fade {
+    animation: hero-fade 0.9s var(--ease-out-expo) both;
+    animation-delay: calc(500ms + var(--hero-delay, 0ms));
+  }
+}
+@keyframes hero-rise {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Budget slider ---------- */
+.budget-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 28px;
+  background: transparent;
+  cursor: pointer;
+}
+.budget-range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--brand) var(--pct), var(--line) var(--pct));
+}
+.budget-range::-moz-range-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--brand) var(--pct), var(--line) var(--pct));
+}
+.budget-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 26px;
+  height: 26px;
+  margin-top: -10px;
+  border-radius: 9999px;
+  background: var(--paper);
+  border: 6px solid var(--ink);
+  box-shadow: 0 6px 14px -4px rgba(0, 0, 0, 0.35);
+}
+.budget-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: var(--paper);
+  border: 6px solid var(--ink);
 }

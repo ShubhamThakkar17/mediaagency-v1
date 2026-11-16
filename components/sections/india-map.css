@@ -1,0 +1,66 @@
+.india-state {
+  stroke: var(--paper);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  transition:
+    fill 0.35s var(--ease-out-expo),
+    opacity 0.35s;
+  cursor: pointer;
+}
+.india-core {
+  fill: var(--ink);
+}
+.india-hq {
+  fill: var(--brand);
+  stroke: var(--paper);
+  stroke-width: 2;
+}
+.india-hq-ring {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 2;
+  opacity: 0.6;
+}
+.india-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--paper);
+  stroke-width: 4px;
+}
+.india-dot {
+  transition: opacity 0.4s;
+}
+.india-dot.is-off {
+  opacity: 0.18;
+}
+.india-pulse {
+  fill: var(--brand);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: india-pulse 3.2s var(--ease-out-expo) infinite;
+  animation-delay: var(--d);
+}
+@keyframes india-pulse {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.6);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(4.2);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .india-pulse {
+    animation: none;
+    opacity: 0.25;
+    transform: scale(1.8);
+  }
+}
