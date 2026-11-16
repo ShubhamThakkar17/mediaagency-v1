@@ -90,10 +90,10 @@ export function Industries({ items }: { items: IndustryView[] }) {
           <h2 id="industries-title" className="display t-2 mt-6 max-w-[14ch]">
             <Emph text={copy.industries.title} />
           </h2>
-          <ul className="mt-8 flex flex-col" role="tablist" aria-label="Industries">
+          <div className="mt-8 flex flex-col" role="tablist" aria-label="Industries">
             {items.map((it, i) => (
-              <li key={it.id}>
                 <button
+                  key={it.id}
                   type="button"
                   role="tab"
                   aria-selected={i === active}
@@ -107,9 +107,8 @@ export function Industries({ items }: { items: IndustryView[] }) {
                   <span className={cn('size-3 shrink-0 rounded-full bg-paper transition-transform duration-500', i === active ? 'scale-100' : 'scale-0')} aria-hidden />
                   {it.label}
                 </button>
-              </li>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </section>

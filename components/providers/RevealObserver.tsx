@@ -28,7 +28,8 @@ export function RevealObserver() {
       document.querySelectorAll('[data-reveal]:not(.is-in)').forEach((el) => {
         if (!seen.has(el)) {
           seen.add(el);
-          const target = el.getAttribute('data-reveal') === 'clip' && el.parentElement ? el.parentElement : el;
+          const zeroSize = el.getAttribute('data-reveal') === 'clip' || el.classList.contains('bar-grow');
+          const target = zeroSize && el.parentElement ? el.parentElement : el;
           if (target !== el) proxies.set(target, el);
           io.observe(target);
         }

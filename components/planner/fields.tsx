@@ -15,11 +15,12 @@ export function Field({ label, children, hint, htmlFor }: { label: string; child
   );
 }
 
-export function Select<T extends string | number>({ id, value, onChange, options, className }: { id?: string; value: T; onChange: (v: T) => void; options: { value: T; label: string }[]; className?: string }) {
+export function Select<T extends string | number>({ id, value, onChange, options, className, label }: { id?: string; value: T; onChange: (v: T) => void; options: { value: T; label: string }[]; className?: string; label?: string }) {
   return (
     <div className={cn('relative', className)}>
       <select
         id={id}
+        aria-label={label}
         value={String(value)}
         onChange={(e) => {
           const o = options.find((op) => String(op.value) === e.target.value);

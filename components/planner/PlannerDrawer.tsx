@@ -5,7 +5,12 @@ import { useEffect, useRef, useState } from 'react';
 import { OPEN_PLANNER_EVENT } from '@/components/layout/FloatingCta';
 import { getLenis } from '@/components/providers/SmoothScroll';
 import type { ChannelLite } from '@/lib/types';
-import { Planner } from './Planner';
+import dynamic from 'next/dynamic';
+
+const Planner = dynamic(() => import('./Planner').then((m) => m.Planner), {
+  ssr: false,
+  loading: () => <div className="h-[60vh] animate-pulse rounded-[28px] bg-cream" />,
+});
 
 /** Slide-over planner opened by the floating "Plan my media" pill. */
 export function PlannerDrawer({ channels }: { channels: ChannelLite[] }) {

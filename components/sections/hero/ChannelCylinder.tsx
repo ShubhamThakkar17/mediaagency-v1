@@ -257,10 +257,10 @@ export function ChannelCylinder({ channels }: { channels: ChannelLite[] }) {
       {/* Fallback: horizontal snap carousel (small screens and reduced motion) */}
       <div className="cyl-flat" role="region" aria-roledescription="carousel" aria-label={`${n} media channels`}>
         <ul className="cyl-flat-track">
-          {channels.map((c) => (
+          {channels.map((c, idx) => (
             <li key={c.slug} className="cyl-flat-item">
               <a href={`/channels/${c.slug}`} aria-label={`${c.name}: explore`} className="block" onClick={(e) => { e.preventDefault(); navigate(`/channels/${c.slug}`, { from: e.currentTarget }); }}>
-                <PosterCard channel={c} sizes="60vw" />
+                <PosterCard channel={c} sizes="(max-width:767px) 58vw, 220px" priority={idx < 2} />
               </a>
             </li>
           ))}

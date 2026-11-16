@@ -7,7 +7,14 @@ import { cn } from '@/lib/cn';
 import { formatCountCompact, formatCountRange, formatINRCompact, formatINRRange } from '@/lib/format-inr';
 import type { BudgetPlan, ChannelsPlan, IntensityId, PlanResult } from '@/lib/planner';
 import type { ChannelLite } from '@/lib/types';
-import { Donut, MIX_COLORS } from './Donut';
+import dynamic from 'next/dynamic';
+import { MIX_COLORS } from './mix-colors';
+
+// Recharts loads on demand (BRIEF §7.6).
+const Donut = dynamic(() => import('./Donut').then((m) => m.Donut), {
+  ssr: false,
+  loading: () => <div className="mx-auto aspect-square w-[200px] rounded-full border-[28px] border-line" />,
+});
 import { Tween } from './Tween';
 
 export function EstimateBadge() {
@@ -80,7 +87,7 @@ export function BudgetResults({ plan, compact }: { plan: BudgetPlan; compact?: b
       <Warnings items={plan.warnings} />
       {plan.lines.length ? (
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[520px] text-left text-[14px]">
+          <table className={cn('w-full text-left text-[14px]', !compact && 'min-w-[520px]')}>
             <caption className="sr-only">Recommended channel mix</caption>
             <thead>
               <tr className="mono border-b border-line text-ink-60">

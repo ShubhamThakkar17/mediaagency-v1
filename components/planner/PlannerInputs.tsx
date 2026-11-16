@@ -39,10 +39,10 @@ export function SharedInputs({ input, update, compact }: { input: PlannerInput; 
             <span className="mono text-ink-60">Where</span>
             <Segmented label="Region scope" value={r.scope} onChange={(scope) => setRegion({ scope })} options={SCOPES} />
             {r.scope === 'city' ? (
-              <Select value={r.city ?? 'ahmedabad'} onChange={(city) => setRegion({ city })} options={CITIES.map((c) => ({ value: c.id, label: c.name }))} />
+              <Select label="City" value={r.city ?? 'ahmedabad'} onChange={(city) => setRegion({ city })} options={CITIES.map((c) => ({ value: c.id, label: c.name }))} />
             ) : null}
             {r.scope === 'state' ? (
-              <Select value={r.state ?? 'gj'} onChange={(state) => setRegion({ state })} options={[...STATES].sort((a, b) => a.name.localeCompare(b.name)).map((s) => ({ value: s.id, label: s.name }))} />
+              <Select label="State" value={r.state ?? 'gj'} onChange={(state) => setRegion({ state })} options={[...STATES].sort((a, b) => a.name.localeCompare(b.name)).map((s) => ({ value: s.id, label: s.name }))} />
             ) : null}
             {r.scope === 'zones' ? (
               <div className="flex flex-wrap gap-2" role="group" aria-label="Zones">

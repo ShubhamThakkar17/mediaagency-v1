@@ -99,8 +99,8 @@ export function Planner({ channels, variant = 'full', initial }: { channels: Cha
 
   return (
     <div className={cn('grid gap-8', full ? 'lg:grid-cols-[1fr_1.05fr] lg:gap-12' : 'lg:grid-cols-[0.9fr_1.1fr] lg:gap-10')}>
-      <div className={cn(full && 'pb-4')}>{inputsPanel}</div>
-      <div className={cn(full && 'lg:sticky lg:top-[96px] lg:self-start')}>{resultsPanel}</div>
+      <div className={cn('min-w-0', full && 'pb-4')}>{inputsPanel}</div>
+      <div className={cn('min-w-0', full && 'lg:sticky lg:top-[96px] lg:self-start')}>{resultsPanel}</div>
     </div>
   );
 }

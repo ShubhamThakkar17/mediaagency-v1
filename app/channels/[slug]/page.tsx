@@ -242,7 +242,7 @@ export default async function ChannelPage({ params }: { params: Promise<{ slug: 
           {related.length ? (
             <div className="mt-20">
               <p className="mono mb-6 text-ink-60">Pairs well with</p>
-              <ul className="grid grid-cols-2 gap-4 md:grid-cols-3">
+              <ul className="grid max-w-[980px] grid-cols-2 gap-4 md:grid-cols-3">
                 {related.map((r) => (
                   <li key={r.slug}>
                     <TLink href={`/channels/${r.slug}`} expand className="block transition-transform duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1.5" data-cursor="View">
