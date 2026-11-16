@@ -88,8 +88,8 @@ export function ChannelUniverse({ panels }: { panels: UniversePanel[] }) {
                   <ul className="flex flex-col">
                     {p.channels.map((c) => (
                       <li key={c.slug}>
-                        <TLink href={`/channels/${c.slug}`} className="group flex items-center gap-4 border-t border-white/15 py-3 lg:py-4" data-cursor="View">
-                          <span className="display text-[clamp(1.6rem,3.4vw,3rem)] font-medium transition-[color,transform] duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-2 group-hover:text-brand">{c.name}</span>
+                        <TLink href={`/channels/${c.slug}`} className="group flex items-center gap-4 border-t border-white/15 py-2.5 lg:py-3" data-cursor="View">
+                          <span className="display text-[clamp(1.4rem,2.6vw,2.5rem)] font-medium transition-[color,transform] duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-2 group-hover:text-brand">{c.name}</span>
                           <ArrowUpRight size={24} className="ml-auto shrink-0 transition-transform duration-500 group-hover:rotate-45" />
                         </TLink>
                       </li>

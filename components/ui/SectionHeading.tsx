@@ -18,7 +18,7 @@ type Props = {
 export function SectionHeading({ label, title, lede, align = 'left', as = 'h2', size = 't-2', className, children, id }: Props) {
   return (
     <div className={cn('flex flex-col gap-6', align === 'center' && 'items-center text-center', className)}>
-      <span className="pill-label" data-reveal="fade">
+      <span className={cn('pill-label', align === 'left' && 'self-start')} data-reveal="fade">
         {label}
       </span>
       <SplitHeading as={as} id={id} className={cn(size, align === 'center' ? 'max-w-[18ch]' : 'max-w-[16ch]')}>

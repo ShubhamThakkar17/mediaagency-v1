@@ -101,7 +101,7 @@ export function Industries({ items }: { items: IndustryView[] }) {
                   onPointerEnter={(e) => e.pointerType === 'mouse' && window.innerWidth < 1024 && setActive(i)}
                   className={cn(
                     'display flex w-full items-center gap-4 py-1 text-left text-[clamp(1.6rem,3.1vw,2.8rem)] font-semibold leading-[1.15] transition-[color,transform] duration-500 ease-[var(--ease-out-expo)]',
-                    i === active ? 'translate-x-3 text-paper' : 'text-ink/45 hover:text-ink/70',
+                    i === active ? 'translate-x-3 text-paper' : 'text-ink/60 hover:text-ink/80',
                   )}
                 >
                   <span className={cn('size-3 shrink-0 rounded-full bg-paper transition-transform duration-500', i === active ? 'scale-100' : 'scale-0')} aria-hidden />
