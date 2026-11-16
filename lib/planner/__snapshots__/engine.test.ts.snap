@@ -1,0 +1,818 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`edge cases > tiny budget: ₹1 L for 1 month 1`] = `
+{
+  "alsoConsider": [
+    "print",
+    "hoardings",
+    "inside-metro",
+  ],
+  "kpiLine": "Estimated 66 to 332 leads at ₹300 to ₹1,500 per lead",
+  "lines": [
+    "social-media | 50% | 50000",
+    "search-performance | 50% | 50000",
+  ],
+  "totalINR": 100000,
+  "totals": {
+    "cpl": {
+      "high": 1500,
+      "low": 300,
+    },
+    "impressions": {
+      "high": 897436,
+      "low": 256411,
+    },
+    "leads": {
+      "high": 332,
+      "low": 66,
+    },
+    "reach": {
+      "high": 214615,
+      "low": 59616,
+    },
+  },
+  "warnings": [],
+}
+`;
+
+exports[`edge cases > tiny budget: ₹1 L for 12 months falls back to one channel with a warning 1`] = `
+{
+  "alsoConsider": [
+    "search-performance",
+    "print",
+    "hoardings",
+  ],
+  "kpiLine": "Estimated 66 to 333 leads at ₹300 to ₹1,500 per lead",
+  "lines": [
+    "social-media | 100% | 100000",
+  ],
+  "totalINR": 100000,
+  "totals": {
+    "cpl": {
+      "high": 1500,
+      "low": 300,
+    },
+    "impressions": {
+      "high": 1282051,
+      "low": 384615,
+    },
+    "leads": {
+      "high": 333,
+      "low": 66,
+    },
+    "reach": {
+      "high": 45031,
+      "low": 13509,
+    },
+  },
+  "warnings": [
+    "₹1 L is below the practical minimum for every channel over 12 months. We have shown Social Media, which needs about ₹6 L. Raise the budget or shorten the duration.",
+    "Airport Branding needs at least ₹60 L over 12 months, so it does not fit this budget.",
+  ],
+}
+`;
+
+exports[`planFromBudget personas > 12-month always-on plan, Bengaluru ₹3 Cr 1`] = `
+{
+  "alsoConsider": [
+    "brand-ambassadors",
+    "television",
+    "stadiums-sports",
+  ],
+  "kpiLine": "Estimated reach 18.8 L to 64.8 L people, from 7.27 Cr to 25.4 Cr impressions",
+  "lines": [
+    "influencers | 17.3% | 5192000",
+    "social-media | 16.8% | 5026000",
+    "inside-metro | 15.1% | 4535000",
+    "digital-ooh | 13.4% | 4022000",
+    "cinema | 12.6% | 3792000",
+    "digital-pr | 12.5% | 3754000",
+    "search-performance | 12.3% | 3679000",
+  ],
+  "totalINR": 30000000,
+  "totals": {
+    "cpl": {
+      "high": 300,
+      "low": 80,
+    },
+    "impressions": {
+      "high": 253939745,
+      "low": 72689103,
+    },
+    "leads": {
+      "high": 108812,
+      "low": 29016,
+    },
+    "reach": {
+      "high": 6479197,
+      "low": 1883381,
+    },
+  },
+  "warnings": [],
+}
+`;
+
+exports[`planFromBudget personas > Ahmedabad real-estate launch ₹40 L / 3 months 1`] = `
+{
+  "alsoConsider": [
+    "airport",
+    "metro-wraps",
+    "print",
+  ],
+  "kpiLine": "Estimated reach 7.61 L to 28.9 L people, from 1.32 Cr to 5.03 Cr impressions",
+  "lines": [
+    "hoardings | 23.3% | 935000",
+    "digital-ooh | 20.7% | 827000",
+    "social-media | 19.5% | 778000",
+    "digital-pr | 18.4% | 737000",
+    "influencers | 18.1% | 723000",
+  ],
+  "totalINR": 4000000,
+  "totals": {
+    "cpl": {
+      "high": 1500,
+      "low": 300,
+    },
+    "impressions": {
+      "high": 50296794,
+      "low": 13205450,
+    },
+    "leads": {
+      "high": 2593,
+      "low": 518,
+    },
+    "reach": {
+      "high": 2888934,
+      "low": 761045,
+    },
+  },
+  "warnings": [],
+}
+`;
+
+exports[`planFromBudget personas > BFSI for affluent decision-makers ₹60 L, airport must-have 1`] = `
+{
+  "alsoConsider": [
+    "airline",
+    "print",
+    "brand-ambassadors",
+  ],
+  "kpiLine": "Estimated reach 9.94 L to 37.6 L people, from 1.29 Cr to 4.63 Cr impressions",
+  "lines": [
+    "airport | 24.9% | 1500000",
+    "digital-pr | 17.5% | 1048000",
+    "search-performance | 15.7% | 941000",
+    "social-media | 15% | 899000",
+    "inside-metro | 14.2% | 850000",
+    "influencers | 12.7% | 762000",
+  ],
+  "totalINR": 6000000,
+  "totals": {
+    "cpl": {
+      "high": 1000,
+      "low": 250,
+    },
+    "impressions": {
+      "high": 46333334,
+      "low": 12850725,
+    },
+    "leads": {
+      "high": 7360,
+      "low": 1840,
+    },
+    "reach": {
+      "high": 3758186,
+      "low": 994258,
+    },
+  },
+  "warnings": [
+    "This budget looks thin for South and West India. A launch-level presence on these channels in South and West India needs about ₹1.5 Cr over 3 months. Consider fewer markets or a shorter, sharper burst.",
+  ],
+}
+`;
+
+exports[`planFromBudget personas > Default input 1`] = `
+{
+  "alsoConsider": [
+    "print",
+    "airport",
+    "radio",
+  ],
+  "kpiLine": "Estimated 944 to 4,723 leads at ₹300 to ₹1,500 per lead",
+  "lines": [
+    "search-performance | 28.4% | 709000",
+    "social-media | 28.3% | 708000",
+    "hoardings | 22.2% | 555000",
+    "inside-metro | 21.1% | 528000",
+  ],
+  "totalINR": 2500000,
+  "totals": {
+    "cpl": {
+      "high": 1500,
+      "low": 300,
+    },
+    "impressions": {
+      "high": 33712820,
+      "low": 9220512,
+    },
+    "leads": {
+      "high": 4723,
+      "low": 944,
+    },
+    "reach": {
+      "high": 1924749,
+      "low": 524747,
+    },
+  },
+  "warnings": [],
+}
+`;
+
+exports[`planFromBudget personas > EV launch for Gen Z in metros ₹1.5 Cr 1`] = `
+{
+  "alsoConsider": [
+    "stadiums-sports",
+    "television",
+    "brand-ambassadors",
+  ],
+  "kpiLine": "Estimated reach 31.3 L to 1.07 Cr people, from 5.43 Cr to 20 Cr impressions",
+  "lines": [
+    "influencers | 18.1% | 2705000",
+    "metro-wraps | 16.9% | 2541000",
+    "hoardings | 16.6% | 2486000",
+    "cinema | 16.4% | 2455000",
+    "digital-ooh | 16.1% | 2422000",
+    "social-media | 15.9% | 2391000",
+  ],
+  "totalINR": 15000000,
+  "totals": {
+    "cpl": {
+      "high": 1200,
+      "low": 300,
+    },
+    "impressions": {
+      "high": 199948719,
+      "low": 54296153,
+    },
+    "leads": {
+      "high": 7970,
+      "low": 1992,
+    },
+    "reach": {
+      "high": 10734110,
+      "low": 3131079,
+    },
+  },
+  "warnings": [
+    "This budget looks thin for India. A launch-level presence on these channels across India needs about ₹3.74 Cr over 3 months. Consider fewer markets or a shorter, sharper burst.",
+  ],
+}
+`;
+
+exports[`planFromBudget personas > Education in tier 2 and 3, North and Central, ₹12 L leads 1`] = `
+{
+  "alsoConsider": [
+    "print",
+    "bus-brts-auto",
+    "railways",
+  ],
+  "kpiLine": "Estimated 1,453 to 5,813 leads at ₹150 to ₹600 per lead",
+  "lines": [
+    "social-media | 37.8% | 453000",
+    "search-performance | 34.9% | 419000",
+    "influencers | 27.3% | 328000",
+  ],
+  "totalINR": 1200000,
+  "totals": {
+    "cpl": {
+      "high": 600,
+      "low": 150,
+    },
+    "impressions": {
+      "high": 19461904,
+      "low": 5404762,
+    },
+    "leads": {
+      "high": 5813,
+      "low": 1453,
+    },
+    "reach": {
+      "high": 2118538,
+      "low": 572624,
+    },
+  },
+  "warnings": [],
+}
+`;
+
+exports[`planFromBudget personas > Gujarat solar B2B ₹8 L leads 1`] = `
+{
+  "alsoConsider": [
+    "print",
+    "digital-pr",
+    "airport",
+  ],
+  "kpiLine": "Estimated 800 to 3,200 leads at ₹250 to ₹1,000 per lead",
+  "lines": [
+    "search-performance | 50% | 400000",
+    "social-media | 50% | 400000",
+  ],
+  "totalINR": 800000,
+  "totals": {
+    "cpl": {
+      "high": 1000,
+      "low": 250,
+    },
+    "impressions": {
+      "high": 10370370,
+      "low": 2962963,
+    },
+    "leads": {
+      "high": 3200,
+      "low": 800,
+    },
+    "reach": {
+      "high": 1149389,
+      "low": 319275,
+    },
+  },
+  "warnings": [],
+}
+`;
+
+exports[`planFromBudget personas > Mumbai hospital ₹15 L awareness 1`] = `
+{
+  "alsoConsider": [
+    "television",
+    "brand-ambassadors",
+    "bus-brts-auto",
+  ],
+  "kpiLine": "Estimated reach 7.02 L to 26.1 L people, from 62.5 L to 2.36 Cr impressions",
+  "lines": [
+    "hoardings | 27% | 406000",
+    "print | 25.5% | 382000",
+    "social-media | 25.5% | 382000",
+    "radio | 22% | 330000",
+  ],
+  "totalINR": 1500000,
+  "totals": {
+    "cpl": {
+      "high": 800,
+      "low": 200,
+    },
+    "impressions": {
+      "high": 23612820,
+      "low": 6253847,
+    },
+    "leads": {
+      "high": 1910,
+      "low": 477,
+    },
+    "reach": {
+      "high": 2609786,
+      "low": 701581,
+    },
+  },
+  "warnings": [],
+}
+`;
+
+exports[`planFromBudget personas > Pan-India D2C established ₹2 Cr 1`] = `
+{
+  "alsoConsider": [
+    "brand-ambassadors",
+    "television",
+    "stadiums-sports",
+  ],
+  "kpiLine": "Estimated 26,026 to 97,599 purchases or leads at ₹80 to ₹300 per purchase or lead",
+  "lines": [
+    "social-media | 20.8% | 4173000",
+    "search-performance | 18.2% | 3635000",
+    "influencers | 18% | 3602000",
+    "digital-ooh | 14.6% | 2915000",
+    "railways | 14.3% | 2864000",
+    "bus-brts-auto | 14.1% | 2811000",
+  ],
+  "totalINR": 20000000,
+  "totals": {
+    "cpl": {
+      "high": 300,
+      "low": 80,
+    },
+    "impressions": {
+      "high": 538080180,
+      "low": 138936037,
+    },
+    "leads": {
+      "high": 97599,
+      "low": 26026,
+    },
+    "reach": {
+      "high": 28021849,
+      "low": 7256693,
+    },
+  },
+  "warnings": [
+    "This budget looks thin for India. A launch-level presence on these channels across India needs about ₹2.44 Cr over 3 months. Consider fewer markets or a shorter, sharper burst.",
+  ],
+}
+`;
+
+exports[`planFromBudget personas > Relaunch across the South ₹5 Cr / 6 months 1`] = `
+{
+  "alsoConsider": [
+    "brand-ambassadors",
+    "bus-brts-auto",
+    "stadiums-sports",
+  ],
+  "kpiLine": "Estimated reach 60.4 L to 2.31 Cr people, from 26 Cr to 99.4 Cr impressions",
+  "lines": [
+    "hoardings | 14.2% | 7109000",
+    "television | 13.6% | 6806000",
+    "social-media | 13.1% | 6534000",
+    "digital-ooh | 12.3% | 6154000",
+    "influencers | 12.3% | 6154000",
+    "print | 12% | 5988000",
+    "metro-wraps | 11.3% | 5635000",
+    "radio | 11.2% | 5620000",
+  ],
+  "totalINR": 50000000,
+  "totals": {
+    "cpl": {
+      "high": 400,
+      "low": 100,
+    },
+    "impressions": {
+      "high": 993578379,
+      "low": 259510631,
+    },
+    "leads": {
+      "high": 65340,
+      "low": 16335,
+    },
+    "reach": {
+      "high": 23094288,
+      "low": 6042901,
+    },
+  },
+  "warnings": [],
+}
+`;
+
+exports[`planFromBudget personas > Retail festive sales, Jaipur ₹25 L / 1 month 1`] = `
+{
+  "alsoConsider": [
+    "radio",
+    "influencers",
+    "brand-ambassadors",
+  ],
+  "kpiLine": "Estimated 3,172 to 12,690 leads at ₹100 to ₹400 per lead",
+  "lines": [
+    "social-media | 25.5% | 640000",
+    "search-performance | 25.2% | 629000",
+    "hoardings | 25% | 624000",
+    "print | 24.3% | 607000",
+  ],
+  "totalINR": 2500000,
+  "totals": {
+    "cpl": {
+      "high": 400,
+      "low": 100,
+    },
+    "impressions": {
+      "high": 39706667,
+      "low": 10460000,
+    },
+    "leads": {
+      "high": 12690,
+      "low": 3172,
+    },
+    "reach": {
+      "high": 1800000,
+      "low": 1447478,
+    },
+  },
+  "warnings": [],
+}
+`;
+
+exports[`planFromChannels personas > Channels only: default selection 1`] = `
+{
+  "alsoConsider": [
+    "print",
+    "inside-metro",
+    "airport",
+  ],
+  "kpiLine": "At Elevate intensity: estimated 650 to 3,252 leads at ₹300 to ₹1,500 per lead",
+  "scenarios": [
+    {
+      "id": "launch",
+      "lines": [
+        "hoardings | 585000",
+        "social-media | 195000",
+        "search-performance | 195000",
+      ],
+      "totalINR": 975000,
+      "totalRange": {
+        "high": 1170000,
+        "low": 829000,
+      },
+      "totals": {
+        "cpl": {
+          "high": 1500,
+          "low": 300,
+        },
+        "impressions": {
+          "high": 18500000,
+          "low": 4750000,
+        },
+        "leads": {
+          "high": 1300,
+          "low": 260,
+        },
+        "reach": {
+          "high": 956588,
+          "low": 249111,
+        },
+      },
+    },
+    {
+      "id": "elevate",
+      "lines": [
+        "hoardings | 1463000",
+        "social-media | 488000",
+        "search-performance | 488000",
+      ],
+      "totalINR": 2439000,
+      "totalRange": {
+        "high": 2927000,
+        "low": 2073000,
+      },
+      "totals": {
+        "cpl": {
+          "high": 1500,
+          "low": 300,
+        },
+        "impressions": {
+          "high": 46271795,
+          "low": 11880769,
+        },
+        "leads": {
+          "high": 3252,
+          "low": 650,
+        },
+        "reach": {
+          "high": 2392900,
+          "low": 623162,
+        },
+      },
+    },
+    {
+      "id": "dominate",
+      "lines": [
+        "hoardings | 3510000",
+        "social-media | 1170000",
+        "search-performance | 1170000",
+      ],
+      "totalINR": 5850000,
+      "totalRange": {
+        "high": 7020000,
+        "low": 4973000,
+      },
+      "totals": {
+        "cpl": {
+          "high": 1500,
+          "low": 300,
+        },
+        "impressions": {
+          "high": 111000000,
+          "low": 28500000,
+        },
+        "leads": {
+          "high": 7800,
+          "low": 1560,
+        },
+        "reach": {
+          "high": 5739526,
+          "low": 1494669,
+        },
+      },
+    },
+  ],
+  "warnings": [],
+}
+`;
+
+exports[`planFromChannels personas > Channels only: metro wraps + airport + social, Elevate 1`] = `
+{
+  "alsoConsider": [
+    "hoardings",
+    "print",
+    "inside-metro",
+  ],
+  "kpiLine": "At Elevate intensity: estimated reach 17.7 L to 67.3 L people, from 3 Cr to 11.3 Cr impressions",
+  "scenarios": [
+    {
+      "id": "launch",
+      "lines": [
+        "metro-wraps | 1950000",
+        "airport | 1950000",
+        "social-media | 195000",
+      ],
+      "totalINR": 4095000,
+      "totalRange": {
+        "high": 4914000,
+        "low": 3481000,
+      },
+      "totals": {
+        "cpl": {
+          "high": 1500,
+          "low": 300,
+        },
+        "impressions": {
+          "high": 45000000,
+          "low": 12000000,
+        },
+        "leads": {
+          "high": 650,
+          "low": 130,
+        },
+        "reach": {
+          "high": 2690403,
+          "low": 707476,
+        },
+      },
+    },
+    {
+      "id": "elevate",
+      "lines": [
+        "metro-wraps | 4875000",
+        "airport | 4875000",
+        "social-media | 488000",
+      ],
+      "totalINR": 10238000,
+      "totalRange": {
+        "high": 12286000,
+        "low": 8702000,
+      },
+      "totals": {
+        "cpl": {
+          "high": 1500,
+          "low": 300,
+        },
+        "impressions": {
+          "high": 112506410,
+          "low": 30001923,
+        },
+        "leads": {
+          "high": 1626,
+          "low": 325,
+        },
+        "reach": {
+          "high": 6726518,
+          "low": 1768845,
+        },
+      },
+    },
+    {
+      "id": "dominate",
+      "lines": [
+        "metro-wraps | 11700000",
+        "airport | 11700000",
+        "social-media | 1170000",
+      ],
+      "totalINR": 24570000,
+      "totalRange": {
+        "high": 29484000,
+        "low": 20885000,
+      },
+      "totals": {
+        "cpl": {
+          "high": 1500,
+          "low": 300,
+        },
+        "impressions": {
+          "high": 270000000,
+          "low": 72000000,
+        },
+        "leads": {
+          "high": 3900,
+          "low": 780,
+        },
+        "reach": {
+          "high": 7200000,
+          "low": 4244858,
+        },
+      },
+    },
+  ],
+  "warnings": [],
+}
+`;
+
+exports[`planFromChannels personas > Channels only: pan-India TV + print + search for leads 1`] = `
+{
+  "alsoConsider": [
+    "social-media",
+    "inside-metro",
+    "digital-pr",
+  ],
+  "kpiLine": "At Elevate intensity: estimated 2,775 to 11,100 leads at ₹250 to ₹1,000 per lead",
+  "scenarios": [
+    {
+      "id": "launch",
+      "lines": [
+        "television | 88800000",
+        "print | 26640000",
+        "search-performance | 1110000",
+      ],
+      "totalINR": 116550000,
+      "totalRange": {
+        "high": 139860000,
+        "low": 99068000,
+      },
+      "totals": {
+        "cpl": {
+          "high": 1000,
+          "low": 250,
+        },
+        "impressions": {
+          "high": 1800000000,
+          "low": 434000000,
+        },
+        "leads": {
+          "high": 4440,
+          "low": 1110,
+        },
+        "reach": {
+          "high": 77989756,
+          "low": 18843163,
+        },
+      },
+    },
+    {
+      "id": "elevate",
+      "lines": [
+        "television | 222000000",
+        "print | 66600000",
+        "search-performance | 2775000",
+      ],
+      "totalINR": 291375000,
+      "totalRange": {
+        "high": 349650000,
+        "low": 247669000,
+      },
+      "totals": {
+        "cpl": {
+          "high": 1000,
+          "low": 250,
+        },
+        "impressions": {
+          "high": 4500000000,
+          "low": 1085000000,
+        },
+        "leads": {
+          "high": 11100,
+          "low": 2775,
+        },
+        "reach": {
+          "high": 194974391,
+          "low": 47107906,
+        },
+      },
+    },
+    {
+      "id": "dominate",
+      "lines": [
+        "television | 532800000",
+        "print | 159840000",
+        "search-performance | 6660000",
+      ],
+      "totalINR": 699300000,
+      "totalRange": {
+        "high": 839160000,
+        "low": 594405000,
+      },
+      "totals": {
+        "cpl": {
+          "high": 1000,
+          "low": 250,
+        },
+        "impressions": {
+          "high": 10800000000,
+          "low": 2604000000,
+        },
+        "leads": {
+          "high": 26640,
+          "low": 6660,
+        },
+        "reach": {
+          "high": 467938539,
+          "low": 113058976,
+        },
+      },
+    },
+  ],
+  "warnings": [],
+}
+`;
