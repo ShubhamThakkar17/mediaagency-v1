@@ -2,7 +2,7 @@
 
 **Status:** all ten modules are built, tested and pushed to `claude/serene-feynman-cc9px7` (currently the repo's only branch). The site builds with zero environment variables.
 
-**Live:** https://mediaagency-v10.vercel.app (imported on Vercel by the owner after the first run).
+**Live:** https://mediaagency-v10.vercel.app. **It shows the round 1 build only.** The Deploy with Vercel button cloned the code into a separate repo (`ShubhamThakkar17/mediaagency-v1.0`, branch `main`), and Vercel deploys from that copy, so pushes to this repo do not reach the live site. To fix it, in Vercel open project *mediaagency-v1.0* → **Settings → Git**, connect `ShubhamThakkar17/mediaagency-v1`, and set the production branch to `claude/serene-feynman-cc9px7`. Alternatively, import `mediaagency-v1` as a new project.
 
 **Round 2 (after first review):** scroll-driven roll of the 3D channel cylinder (pinned hero, now on phones too), motion posters for the ring-style cards, and Media CatchUp (`/catchup`: articles, case studies, guides, market updates, with a home teaser). Details are in DECISIONS.md under "Round 2".
 
