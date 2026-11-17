@@ -7,6 +7,7 @@ import { demoCampaigns } from '@/content/demo';
 import { getMedia } from '@/content/media';
 import { getAllChannels } from '@/lib/channels';
 import { renderable } from '@/lib/demo-guard';
+import { getAllPosts } from '@/lib/catchup';
 
 export const metadata: Metadata = {
   title: 'Work',
@@ -17,11 +18,13 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   const all = getAllChannels();
   const by = new Map(all.map((c) => [c.slug, c]));
+  const caseStudies = new Set(getAllPosts().filter((p) => p.type === 'case-study').map((p) => p.slug));
   const items = renderable(demoCampaigns, 'Work grid').map((c) => ({
     ...c,
     channels: c.channels.map((s) => ({ slug: s, name: by.get(s)?.shortName ?? s })),
     media: getMedia(c.media),
     glyph: by.get(c.channels[0])?.glyph ?? 'hoardings',
+    caseStudy: caseStudies.has(`case-study-${c.id}`) ? `case-study-${c.id}` : undefined,
   }));
   const used = new Set(items.flatMap((i) => i.channels.map((c) => c.slug)));
   const filters = all.filter((c) => used.has(c.slug)).map((c) => ({ slug: c.slug, name: c.shortName }));

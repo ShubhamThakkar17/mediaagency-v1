@@ -117,3 +117,26 @@ test('theme preset reskins the brand colour', async ({ page }) => {
   await page.goto('/?nopreload&theme=indigo');
   await expect.poll(() => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--brand').trim().toUpperCase())).toBe('#4F46E5');
 });
+
+test('scrolling the pinned hero rolls the cylinder through the channels', async ({ page }) => {
+  await page.goto('/?nopreload');
+  const caption = page.locator('.cyl-caption-name');
+  await expect(caption).toHaveText('Print Media');
+  await page.evaluate(() => window.scrollTo(0, Math.round(window.innerHeight * 1.8 * 0.4)));
+  await expect(caption).not.toHaveText('Print Media', { timeout: 5000 });
+  // Still pinned: the hero headline has not scrolled away.
+  await expect(page.locator('#hero-title')).toBeInViewport();
+});
+
+test('Media CatchUp: hub filters by type, case studies render, old links redirect', async ({ page }) => {
+  await page.goto('/catchup');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('planning desk');
+  await page.getByRole('tab', { name: /Case studies/ }).click();
+  const cards = page.locator('ul[aria-live] > li');
+  await expect(cards.first()).toBeVisible();
+  for (const text of await cards.allInnerTexts()) expect(text).toMatch(/case study/i);
+  await page.goto('/catchup/case-study-skyline-launch');
+  await expect(page.getByLabel('Campaign facts')).toContainText('Results (illustrative)');
+  await page.goto('/insights');
+  await expect(page).toHaveURL(/\/catchup$/);
+});

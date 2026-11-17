@@ -96,6 +96,21 @@ export const copy = {
     title: 'What clients say *about us.*',
   },
   social: { label: 'Follow along' },
+  catchup: {
+    /** Name of the publishing hub (nav, page title, home teaser). */
+    name: 'Media CatchUp',
+    navLabel: 'CatchUp',
+    label: 'Media CatchUp',
+    title: 'Fresh from *the planning desk.*',
+    lede: 'Articles, case studies, guides and market updates on planning and buying media across India.',
+    homeTitle: 'Catch up on *what is working.*',
+    homeLede: 'Short reads from our planners: what moved the market, how campaigns were built and what we would do next time.',
+    cta: 'Visit Media CatchUp',
+    all: 'Everything',
+    read: 'Read',
+    featured: 'Featured',
+    concept: 'Concept',
+  },
   footer: {
     kicker: 'Ready when you are',
     headline: 'Let’s put your brand *everywhere it matters.*',

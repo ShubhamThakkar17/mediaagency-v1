@@ -1,5 +1,6 @@
 .cyl-root {
-  --cyl-w: clamp(150px, 14.5vw, 224px);
+  /* Card width scales with both width and height so the pinned hero fits one screen. */
+  --cyl-w: clamp(118px, min(13vw, 19vh), 214px);
   --cyl-h: calc(var(--cyl-w) * 1.3333);
   --cyl-r: calc(var(--cyl-w) * 3.3);
   position: relative;
@@ -10,7 +11,8 @@
 }
 .cyl-viewport {
   position: relative;
-  height: calc(var(--cyl-h) + 190px);
+  /* The -8deg tilt pushes the front cards down by about 0.14 × radius, so reserve that room. */
+  height: calc(var(--cyl-h) * 1.62 + 48px);
   perspective: 1600px;
   perspective-origin: 50% 38%;
   touch-action: pan-y;
@@ -27,7 +29,7 @@
   transform-style: preserve-3d;
 }
 .cyl-tilt {
-  transform: translateY(46px) translateZ(calc(var(--cyl-r) * -1)) rotateX(-8deg);
+  transform: translateY(clamp(20px, 4vh, 46px)) translateZ(calc(var(--cyl-r) * -1)) rotateX(-8deg);
 }
 .cyl-ring {
   will-change: transform;
@@ -95,6 +97,46 @@
 .cyl-viewport[data-dragging='true'] .cyl-chip {
   opacity: 0;
 }
+/* The card at the front of the ring lifts toward the viewer. */
+.cyl-card[data-front='true'] .cyl-card-inner {
+  transform: translateZ(26px);
+  box-shadow: 0 36px 70px -26px color-mix(in srgb, var(--brand) 50%, rgba(0, 0, 0, 0.5));
+}
+.cyl-caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 0;
+  padding-inline: 16px;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+.cyl-caption-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  letter-spacing: -0.02em;
+  min-width: 12ch;
+}
+.cyl-progress {
+  position: relative;
+  display: block;
+  width: 96px;
+  height: 3px;
+  border-radius: 9999px;
+  background: var(--line);
+  overflow: hidden;
+}
+.cyl-progress > span {
+  position: absolute;
+  inset: 0;
+  transform-origin: left;
+  transform: scaleX(0);
+  background: var(--brand);
+}
 
 /* Flat fallback */
 .cyl-flat {
@@ -124,11 +166,28 @@
   transform: rotateY(-4deg) translateY(10px);
 }
 
-@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+@media (prefers-reduced-motion: no-preference) {
   .cyl-3d {
     display: block;
   }
   .cyl-flat {
+    display: none;
+  }
+}
+/* Phones: a tighter drum, so 3 to 5 cards are in view at once. */
+@media (max-width: 767px) {
+  .cyl-root {
+    --cyl-w: clamp(112px, min(34vw, 22vh), 150px);
+    --cyl-r: calc(var(--cyl-w) * 2.95);
+  }
+  .cyl-viewport {
+    perspective: 1000px;
+    height: calc(var(--cyl-h) * 1.68 + 28px);
+  }
+  .cyl-tilt {
+    transform: translateY(14px) translateZ(calc(var(--cyl-r) * -1)) rotateX(-7deg);
+  }
+  .cyl-caption .mono:last-child {
     display: none;
   }
 }

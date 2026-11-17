@@ -61,7 +61,7 @@ export function Nav() {
               <Logo />
             </TLink>
 
-            <nav aria-label="Primary" className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
+            <nav aria-label="Primary" className="absolute left-1/2 hidden -translate-x-1/2 xl:block">
               <ul className="flex items-center gap-0.5 rounded-full border border-line/70 bg-paper p-1.5 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.12)]">
                 {brand.nav.map((item) => (
                   <li key={item.href}>
@@ -69,7 +69,7 @@ export function Nav() {
                       href={item.href}
                       aria-current={isActive(item.href) ? 'page' : undefined}
                       className={cn(
-                        'block rounded-full px-4 py-2 text-[14px] font-medium transition-colors duration-300',
+                        'block rounded-full px-3.5 py-2 text-[14px] font-medium transition-colors duration-300',
                         isActive(item.href) ? 'bg-brand text-on-brand' : 'text-ink hover:bg-cream',
                       )}
                     >
@@ -89,7 +89,7 @@ export function Nav() {
               </Magnetic>
               <button
                 type="button"
-                className="relative z-10 grid size-11 place-items-center rounded-full border border-line bg-paper lg:hidden"
+                className="relative z-10 grid size-11 place-items-center rounded-full border border-line bg-paper xl:hidden"
                 aria-expanded={open}
                 aria-controls="mobile-menu"
                 aria-label={open ? 'Close menu' : 'Open menu'}
@@ -108,7 +108,7 @@ export function Nav() {
       <div
         id="mobile-menu"
         className={cn(
-          'bg-dots fixed inset-0 z-[90] flex flex-col bg-cream px-5 pb-8 pt-[calc(var(--nav-h)+16px)] transition-[clip-path,visibility] duration-500 ease-[var(--ease-in-out-quart)] lg:hidden',
+          'bg-dots fixed inset-0 z-[90] flex flex-col bg-cream px-5 pb-8 pt-[calc(var(--nav-h)+16px)] transition-[clip-path,visibility] duration-500 ease-[var(--ease-in-out-quart)] xl:hidden',
           open ? 'visible [clip-path:inset(0_0_0_0)]' : 'invisible [clip-path:inset(0_0_100%_0)]',
         )}
         aria-hidden={!open}

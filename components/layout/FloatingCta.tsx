@@ -17,7 +17,10 @@ export function FloatingCta() {
     const onScroll = () => {
       const y = window.scrollY;
       const nearEnd = y + window.innerHeight > document.documentElement.scrollHeight - 520;
-      setShow(y > 500 && !nearEnd);
+      // Stay out of the way while a section that asks for it (the pinned hero) is on screen.
+      const blocker = document.querySelector('[data-hide-floating-cta]');
+      const blocked = blocker ? blocker.getBoundingClientRect().bottom > window.innerHeight * 0.4 : false;
+      setShow(y > 500 && !nearEnd && !blocked);
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });

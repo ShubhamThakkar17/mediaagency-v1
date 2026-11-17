@@ -51,11 +51,12 @@ export const brand = {
     { label: 'Planner', href: '/planner' },
     { label: 'Services', href: '/services' },
     { label: 'Work', href: '/work' },
+    { label: 'CatchUp', href: '/catchup' },
     { label: 'About', href: '/about' },
     { label: 'Contact', href: '/contact' },
   ],
   footerNav: [
-    { label: 'Insights', href: '/insights' },
+    { label: 'Media CatchUp', href: '/catchup' },
     { label: 'How the planner works', href: '/planner-methodology' },
     { label: 'Credits', href: '/credits' },
     { label: 'Privacy', href: '/privacy' },

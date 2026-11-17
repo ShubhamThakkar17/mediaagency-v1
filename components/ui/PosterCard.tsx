@@ -36,15 +36,25 @@ export function PosterCard({ channel: c, className, sizes = '320px', priority }:
     );
   }
   if (c.posterStyle === 'type-poster') {
+    // Motion poster: rings ripple outward like a broadcast signal, with the channel's animated glyph at the centre.
     return (
       <div className={cn(base, 'bg-cream text-ink', className)}>
-        <svg viewBox="0 0 200 200" className="absolute left-1/2 top-[44%] w-[150%] -translate-x-1/2 -translate-y-1/2" aria-hidden>
-          {[92, 74, 56, 38, 20].map((r, i) => (
-            <circle key={r} cx="100" cy="100" r={r} fill={i === 4 ? 'var(--brand)' : 'none'} stroke="var(--brand)" strokeWidth={i === 4 ? 0 : 5} opacity={0.25 + i * 0.18} />
+        <div className="tp-rings" aria-hidden>
+          {[0, 1, 2, 3].map((k) => (
+            <span key={k} className="tp-ring" style={{ ['--k' as string]: k }} />
           ))}
-        </svg>
+          <span className="tp-core">
+            <Glyph id={c.glyph} tone="brand" />
+          </span>
+        </div>
         {meta}
-        <span className="display relative z-10 block break-words text-[clamp(1.5rem,2.9vw,2.6rem)] font-bold leading-[0.88] tracking-[-0.045em]">{c.shortName}</span>
+        <span
+          className="display relative z-10 block font-bold leading-[0.88] tracking-[-0.045em]"
+          // Long names step down so words never break mid-way.
+          style={{ fontSize: c.shortName.length > 10 ? 'clamp(1rem, 1.7vw, 1.65rem)' : c.shortName.length > 7 ? 'clamp(1.15rem, 2vw, 1.95rem)' : 'clamp(1.4rem, 2.6vw, 2.4rem)' }}
+        >
+          {c.shortName}
+        </span>
       </div>
     );
   }

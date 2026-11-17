@@ -5,25 +5,21 @@ import { ArrowUpRight } from '@/components/ui/Icons';
 import { Magnetic } from '@/components/ui/Magnetic';
 import type { ChannelLite } from '@/lib/types';
 import { ChannelCylinder } from './ChannelCylinder';
-import { HeroParallax } from './HeroParallax';
 import { Preloader } from './Preloader';
 
 export function Hero({ channels }: { channels: ChannelLite[] }) {
   let w = 0;
   return (
-    <section className="bg-dots grain relative overflow-hidden bg-paper pb-[clamp(56px,7vw,110px)] pt-[calc(var(--nav-h)+8px)]" aria-labelledby="hero-title">
+    <section data-hero-scroll data-hide-floating-cta className="hero-scroll relative bg-paper" aria-labelledby="hero-title">
+      <div className="hero-sticky bg-dots grain flex flex-col justify-center overflow-hidden bg-paper pb-[clamp(28px,4vh,64px)] pt-[calc(var(--nav-h)+4px)]">
       <Preloader />
       <div className="glow -bottom-[38%] left-1/2 h-[70%] w-[78%] -translate-x-1/2" aria-hidden />
       <div className="relative flex flex-col">
-        <div className="order-2 md:order-1">
+        <div>
           <ChannelCylinder channels={channels} />
-          <p className="mono mt-1 text-center text-ink-60 md:-mt-2">
-            <span className="hidden md:inline">{copy.hero.label}</span>
-            <span className="md:hidden">Swipe</span> · {channels.length} channels
-          </p>
         </div>
-        <HeroParallax className="wrap order-1 flex flex-col items-center pb-8 pt-6 text-center md:order-2 md:pb-0 md:pt-9">
-          <h1 id="hero-title" className="display max-w-[15ch] text-[clamp(2.7rem,6.7vw,6.6rem)] font-medium md:max-w-none">
+        <div data-hero-copy className="wrap flex flex-col items-center pt-[clamp(14px,2.6vh,32px)] text-center">
+          <h1 id="hero-title" className="display max-w-[15ch] text-[clamp(2.4rem,min(6.4vw,9.5vh),6.4rem)] font-medium md:max-w-none">
             {copy.hero.headline.map((line, li) => (
               <span key={line} className={li === 2 ? 'block' : 'inline'}>
                 {line.split(' ').map((word) => (
@@ -34,8 +30,8 @@ export function Hero({ channels }: { channels: ChannelLite[] }) {
               </span>
             ))}
           </h1>
-          <p className="lede hero-fade mt-6 max-w-[58ch]">{copy.hero.sub}</p>
-          <div className="hero-fade mt-8 flex flex-wrap items-center justify-center gap-3">
+          <p className="lede hero-fade mt-[clamp(10px,2vh,24px)] max-w-[58ch] max-sm:text-[15px]">{copy.hero.sub}</p>
+          <div className="hero-fade mt-[clamp(14px,2.6vh,32px)] flex flex-wrap items-center justify-center gap-3">
             <Magnetic>
               <TLink href={brand.primaryCta.href} className="btn btn-brand">
                 {copy.hero.primary} <ArrowUpRight size={18} />
@@ -45,7 +41,8 @@ export function Hero({ channels }: { channels: ChannelLite[] }) {
               {copy.hero.secondary}
             </TLink>
           </div>
-        </HeroParallax>
+        </div>
+      </div>
       </div>
     </section>
   );

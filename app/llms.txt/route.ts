@@ -1,6 +1,7 @@
 import { brand } from '@/brand/brand.config';
 import { getAllChannels } from '@/lib/channels';
-import { getAllInsights } from '@/lib/insights';
+import { catchupTypeLabel, getAllPosts } from '@/lib/catchup';
+import { copy } from '@/brand/copy';
 import { SERVICES } from '@/content/services';
 
 export const dynamic = 'force-static';
@@ -29,8 +30,8 @@ export function GET() {
     '## Services',
     ...SERVICES.map((s) => `- [${s.title}](${u(`/services#${s.id}`)}): ${s.short}`),
     '',
-    '## Insights',
-    ...getAllInsights().map((p) => `- [${p.title}](${u(`/insights/${p.slug}`)}): ${p.excerpt}`),
+    `## ${copy.catchup.name}`,
+    ...getAllPosts().map((p) => `- [${p.title}](${u(`/catchup/${p.slug}`)}) (${catchupTypeLabel(p.type)}${p.demo ? ', concept' : ''}): ${p.excerpt}`),
     '',
   ];
   return new Response(lines.join('\n'), { headers: { 'content-type': 'text/plain; charset=utf-8' } });

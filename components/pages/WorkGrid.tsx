@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import { TLink } from '@/components/providers/Transition';
+import { ArrowUpRight } from '@/components/ui/Icons';
 import { SmartMedia } from '@/components/ui/SmartMedia';
 import { cn } from '@/lib/cn';
 import type { GlyphId, MediaRef } from '@/lib/types';
@@ -17,6 +19,8 @@ export type WorkItem = {
   media: MediaRef;
   glyph: GlyphId;
   shape: 'tall' | 'wide' | 'square';
+  /** Slug of the matching Media CatchUp case study, if one exists. */
+  caseStudy?: string;
 };
 
 /** Masonry of concept campaigns with a channel filter. Every card is tagged "Concept". */
@@ -54,6 +58,11 @@ export function WorkGrid({ items, filters }: { items: WorkItem[]; filters: { slu
                 <p className="mt-3 text-[15px] leading-relaxed text-ink-60">{it.summary}</p>
                 <p className="mt-4 text-[15px] font-semibold">{it.result}</p>
                 <p className="mt-1 text-[13px] text-ink-60">{it.markets}</p>
+                {it.caseStudy ? (
+                  <TLink href={`/catchup/${it.caseStudy}`} className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-semibold underline decoration-brand underline-offset-4">
+                    Read the case study <ArrowUpRight size={14} />
+                  </TLink>
+                ) : null}
                 <ul className="mt-5 flex flex-wrap gap-1.5">
                   {it.channels.map((c) => (
                     <li key={c.slug} className="rounded-full bg-paper px-3 py-1 text-[12.5px] font-medium">

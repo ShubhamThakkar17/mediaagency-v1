@@ -40,7 +40,7 @@ Swap any `src` for your own photography (`licence: 'Own'`) or stock. Empty slots
 
 ## 7. Channels and content
 
-Add, remove or rewrite channels in `content/channels/` (the zod schema in `lib/channel-schema.ts` validates every file at build time). Services live in `content/services.ts`, blog posts in `content/insights/`.
+Add, remove or rewrite channels in `content/channels/` (the zod schema in `lib/channel-schema.ts` validates every file at build time). Services live in `content/services.ts`. Media CatchUp posts live in `content/catchup/` (type: article, case-study, guide or market-update; case studies need a `caseStudy` block and, while they are concept work, `demo: true`). Rename the hub itself in `brand/copy.ts` (`catchup.name`).
 
 ## 8. Ship
 

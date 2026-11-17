@@ -1,6 +1,6 @@
 # Media360 · 360° media agency website template
 
-A fully animated marketing site for a pan-India media agency: a spinning 3D channel cylinder, 18 channel pages, a two-way media planner, an India reach map, glossy 3D service objects and a library of 22 animated channel glyphs. Everything brand-specific lives in config, so the template can be rebranded in under an hour (see [CLONING.md](./CLONING.md)).
+A fully animated marketing site for a pan-India media agency: a spinning 3D channel cylinder that rolls through all 18 channels as you scroll, 18 channel pages, a Media CatchUp hub (articles, case studies, guides, market updates), a two-way media planner, an India reach map, glossy 3D service objects and a library of 22 animated channel glyphs. Everything brand-specific lives in config, so the template can be rebranded in under an hour (see [CLONING.md](./CLONING.md)).
 
 > **Template preview.** Stats, client logos, testimonials and campaigns are sample content, and every rate is a planning placeholder. See [REPORT.md](./REPORT.md) for what to replace first.
 
@@ -39,7 +39,7 @@ That runs lint, typecheck, Vitest (69 tests), the brand-hardcode check and a pro
 | `pnpm test` | Vitest: planner engine personas and edge cases, URL state, INR formatting, demo guard |
 | `pnpm check:brand` | Fails if the brand name is hard-coded outside `/brand`, `/content`, `/data` |
 | `pnpm build` | Production build. Passes with **zero** environment variables |
-| `pnpm test:e2e` | Playwright smoke tests (needs `pnpm build` first; starts `pnpm start` on port 3210) |
+| `pnpm test:e2e` | Playwright smoke tests, 10 of them (needs `pnpm build` first; starts `pnpm start` on port 3210) |
 | `pnpm check:media` | HEAD-checks every image URL and rewrites `MEDIA_REPORT.md` |
 | `pnpm fetch:media` | With `UNSPLASH_ACCESS_KEY` / `PEXELS_API_KEY`, suggests photos for empty media slots |
 
@@ -67,7 +67,7 @@ Vercel: framework Next.js, build command `pnpm build`, Node 20+, no required env
 
 ```
 /brand       brand.config.ts (name, contacts, HQ, nav), theme.ts (3 presets), copy.ts (site copy)
-/content     channels/*.mdx (18), insights/*.mdx (3), services.ts, industries.ts, demo.ts, media.ts
+/content     channels/*.mdx (18), catchup/*.mdx (Media CatchUp: 9 posts), services.ts, industries.ts, demo.ts, media.ts
 /data        audiences, industries (+CPL), objectives, regions, cities, categories, market, planner-weights
 /lib         planner/ (pure engine + tests), channels.ts (zod-validated loader), format-inr, demo-guard, gsap, motion, seo
 /components  sections/ (home), channel/, planner/, glyphs/, three/, layout/, providers/, ui/

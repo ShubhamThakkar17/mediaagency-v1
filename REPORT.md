@@ -1,15 +1,19 @@
 # Build report · Media360 v1
 
-**Status:** all ten modules are built, tested and pushed to `claude/serene-feynman-cc9px7` (currently the repo's only branch). The site builds with zero environment variables. **It is not deployed yet:** see the first item below for the one step left.
+**Status:** all ten modules are built, tested and pushed to `claude/serene-feynman-cc9px7` (currently the repo's only branch). The site builds with zero environment variables.
+
+**Live:** https://mediaagency-v10.vercel.app (imported on Vercel by the owner after the first run).
+
+**Round 2 (after first review):** scroll-driven roll of the 3D channel cylinder (pinned hero, now on phones too), motion posters for the ring-style cards, and Media CatchUp (`/catchup`: articles, case studies, guides, market updates, with a home teaser). Details are in DECISIONS.md under "Round 2".
 
 ## Definition of done (BRIEF §15)
 
-- [ ] **Live Vercel URL.** Not done. The repo is not connected to a Vercel project, no `VERCEL_TOKEN` was available for the CLI, and my attempt to create the project through the Vercel connector was blocked by this session's permission system. Following §14 option C, I added a Deploy with Vercel button to README.md. **To deploy (3 clicks):**
+- [x] **Live Vercel URL:** https://mediaagency-v10.vercel.app. (At the end of the first run it was not deployed: The repo is not connected to a Vercel project, no `VERCEL_TOKEN` was available for the CLI, and my attempt to create the project through the Vercel connector was blocked by this session's permission system. Following §14 option C, I added a Deploy with Vercel button to README.md. **To deploy (3 clicks):**
   1. Open https://vercel.com/new/clone?repository-url=https://github.com/ShubhamThakkar17/mediaagency-v1 (or vercel.com/new → Import `mediaagency-v1`).
   2. Keep the detected settings: Framework *Next.js*, build `pnpm build`, Node 20+. Add no env vars.
   3. Click **Deploy**. After that, every push builds a preview automatically.
 
-  If the import asks for a production branch, choose `claude/serene-feynman-cc9px7`, or merge it into `main` first.
+  If the import asks for a production branch, choose `claude/serene-feynman-cc9px7`, or merge it into `main` first.)
 - [x] **Home page:** every §5.1 section with its motion: preloader, 3D cylinder hero, stats marquee, about with parallax, 6 services with 3D objects, pinned horizontal channel universe, India reach map with pulse waves and tier tabs, pinned full-orange industries, planner block, rolling-digit bento, logo marquee, sticky 01–03 stack, campaigns table with cursor preview, twin marquees, stacked testimonial deck, social row and the footer wave with riding cards. It follows the Agenciex layout rhythm (screenshots in `qa/screenshots/home-desktop-*.png`).
 - [x] **Cylinder** spins with drag, horizontal wheel, touch and keyboard (←/→ snap one card, Enter opens). Below 768px or under reduced motion it becomes a snap carousel. Covered by the Playwright drag and keyboard test and the reduced-motion test.
 - [x] **All 18 channel glyphs** (plus 4 extras) animate, pause off-screen and show a static frame under reduced motion. `/admin/glyphs` exists in dev only.
@@ -18,7 +22,7 @@
 - [x] **Zero broken images.** 37 of 46 media slots hold verified Unsplash photos (`MEDIA_REPORT.md`: 37 ok, 0 failed). The rest show the branded fallback. A Playwright test forces every Unsplash URL to 404 and confirms no broken image appears.
 - [x] **Demo content** is labelled with a "Template preview · sample content" badge, and noindex plus a disallow-all robots.txt are on in demo mode. The guard works: `NEXT_PUBLIC_DEMO_MODE=false pnpm build` fails with `[demo-guard] … "About map counters"`, and unit tests cover it.
 - [x] **Brand-hardcode check passes** (`pnpm check:brand`). Switching the theme preset reskins the site: `qa/screenshots/theme-indigo.png` and `theme-forest.png`.
-- [x] **lint, typecheck, Vitest (69 tests), Playwright (8 smoke tests) and build all pass.** Lighthouse scores are below.
+- [x] **lint, typecheck, Vitest (69 tests), Playwright (10 smoke tests) and build all pass.** Lighthouse scores are below.
 - [x] **Docs:** README.md, CLONING.md, DECISIONS.md, MEDIA_REPORT.md, IMAGE_PROMPTS.md, .env.example and this report.
 - [x] **Placeholders** are listed below.
 
@@ -28,13 +32,14 @@ Lighthouse 12 mobile preset (simulated slow 4G, 4× CPU throttle), run against `
 
 | Page | Performance | Accessibility | Best practices | SEO | LCP | TBT | CLS |
 |---|---|---|---|---|---|---|---|
-| `/` | 74 | 100 | 100 | 66* | 5.0 s | 290 ms | 0 |
+| `/` (round 2, 3D roll on phones) | 63 | 100 | 100 | 66* | 7.2 s | 470 ms | 0 |
+| `/` (round 1, flat carousel on phones) | 74 | 100 | 100 | 66* | 5.0 s | 290 ms | 0 |
 | `/channels/hoardings` | 71 | 100 | 100 | 69* | 7.6 s | 230 ms | 0 |
 | `/planner` | 79 | 100 | 100 | 66* | 5.3 s | 110 ms | 0 |
 
 \* SEO is held down on purpose: demo mode sets `noindex`, so the "page is crawlable" audit fails. Every other SEO audit passes. With demo mode off it should score in the 90s.
 
-**Performance misses the 85 target.** I fixed what I could without cutting motion:
+**Performance misses the 85 target.** Round 2 traded about 10 points on the mobile home page for the full 3D scroll roll on phones. To win them back, phones can fall back to the flat carousel by restoring a `min-width: 768px` condition in `components/sections/hero/cylinder.css`. I fixed what I could without cutting motion:
 - Recharts and the planner drawer now load on demand, which took about 100 kB off every page.
 - Below 768px the hero carousel shows glyph posters, so a text block is the LCP element rather than a photo. The headline itself animates word by word, so it isn't one block.
 

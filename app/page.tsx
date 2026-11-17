@@ -5,6 +5,9 @@ import { INDUSTRY_CONTENT } from '@/content/industries';
 import { getMedia } from '@/content/media';
 import { About } from '@/components/sections/About';
 import { CampaignTable } from '@/components/sections/CampaignTable';
+import { CatchupTeaser } from '@/components/sections/CatchupTeaser';
+import { getAllPosts } from '@/lib/catchup';
+import { toCards } from '@/lib/catchup-cards';
 import { ChannelUniverse } from '@/components/sections/ChannelUniverse';
 import { FeatureStack } from '@/components/sections/FeatureStack';
 import { Hero } from '@/components/sections/hero/Hero';
@@ -68,6 +71,11 @@ export default function Home() {
     glyph: bySlug.get(c.channels[0])?.glyph ?? 'hoardings',
   }));
 
+  // Media CatchUp teaser: the newest post of each of three different types.
+  const posts = renderable(getAllPosts(), 'Media CatchUp teaser');
+  const seen = new Set<string>();
+  const teaser = toCards(posts.filter((p) => (seen.has(p.type) ? false : (seen.add(p.type), true))).slice(0, 3));
+
   const adex = marketFigure('adex-2025');
   const marketStat = adex && visibleFigures([adex]).length ? adex : null;
 
@@ -103,6 +111,7 @@ export default function Home() {
         <FeatureStack media={copy.features.rows.map((r) => getMedia(r.media))} />
       </div>
       <CampaignTable rows={campaigns} />
+      <CatchupTeaser posts={teaser} />
       <Taglines channelNames={all.map((c) => c.shortName)} />
       <Testimonials items={renderable(demoTestimonials, 'Testimonials')} rating={renderableOne(demoRating, 'Testimonial rating')} />
       <SocialRow />

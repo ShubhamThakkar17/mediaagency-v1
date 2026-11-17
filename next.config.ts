@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'videos.pexels.com' },
     ],
   },
+  async redirects() {
+    return [
+      { source: '/insights', destination: '/catchup', permanent: true },
+      { source: '/insights/:slug', destination: '/catchup/:slug', permanent: true },
+    ];
+  },
   experimental: {
     optimizePackageImports: ['lucide-react', 'recharts', '@react-three/drei'],
   },

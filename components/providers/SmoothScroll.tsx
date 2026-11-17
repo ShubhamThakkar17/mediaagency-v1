@@ -1,6 +1,6 @@
 'use client';
 import Lenis from 'lenis';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { prefersReducedMotion } from '@/lib/motion';
@@ -34,7 +34,13 @@ export function SmoothScroll() {
   }, []);
 
   // New route: jump to top and let ScrollTrigger re-measure the new page.
+  // Skipped on first mount so a reload keeps the browser's restored scroll position.
+  const firstRoute = useRef(true);
   useEffect(() => {
+    if (firstRoute.current) {
+      firstRoute.current = false;
+      return;
+    }
     if (window.location.hash) return;
     if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
     else window.scrollTo(0, 0);

@@ -25,9 +25,12 @@ export function ChannelCylinder({ channels }: { channels: ChannelLite[] }) {
   const cardEls = useRef<(HTMLDivElement | null)[]>([]);
   const { navigate } = usePageTransition();
   const [announce, setAnnounce] = useState('');
-  const state = useRef({ angle: 0, v: 0, dragging: false, hover: false, lastX: 0, moved: 0, snap: null as number | null, visible: true, focused: false });
+  const state = useRef({ angle: 0, scrollAngle: 0, scrollShown: 0, v: 0, dragging: false, hover: false, lastX: 0, moved: 0, snap: null as number | null, visible: true, focused: false, front: -1 });
+  const caption = useRef<HTMLSpanElement>(null);
+  const counter = useRef<HTMLSpanElement>(null);
+  const progress = useRef<HTMLSpanElement>(null);
 
-  const frontIndex = () => ((Math.round(-state.current.angle / step) % n) + n) % n;
+  const frontIndex = () => ((Math.round(-(state.current.angle + state.current.scrollAngle) / step) % n) + n) % n;
 
   useEffect(() => {
     const el = region.current;
@@ -39,14 +42,24 @@ export function ChannelCylinder({ channels }: { channels: ChannelLite[] }) {
     let last = performance.now();
 
     const render = () => {
-      ringEl.style.transform = `rotateY(${s.angle}deg)`;
+      const total = s.angle + s.scrollShown;
+      ringEl.style.transform = `rotateY(${total}deg)`;
       for (let i = 0; i < n; i++) {
         const card = cardEls.current[i];
         if (!card) continue;
-        const cos = Math.cos(((i * step + s.angle) * Math.PI) / 180);
+        const cos = Math.cos(((i * step + total) * Math.PI) / 180);
         const shade = card.lastElementChild as HTMLElement;
         shade.style.opacity = String(Math.round(((1 - cos) / 2) * 72) / 100);
         card.style.pointerEvents = cos > 0.55 ? 'auto' : 'none';
+      }
+      // Caption follows the card at the front of the ring.
+      const f = ((Math.round(-total / step) % n) + n) % n;
+      if (f !== s.front) {
+        if (s.front >= 0) cardEls.current[s.front]?.removeAttribute('data-front');
+        cardEls.current[f]?.setAttribute('data-front', 'true');
+        s.front = f;
+        if (caption.current) caption.current.textContent = channels[f].name;
+        if (counter.current) counter.current.textContent = `${String(f + 1).padStart(2, '0')} / ${n}`;
       }
     };
 
@@ -67,6 +80,8 @@ export function ChannelCylinder({ channels }: { channels: ChannelLite[] }) {
         if (Math.abs(s.v) < 0.002) s.v = 0;
         if (!s.hover && !s.focused && !reduced) s.angle -= AUTO * dt;
       }
+      // Ease toward the scroll-driven angle so native (non-Lenis) scrolling stays smooth.
+      s.scrollShown += (s.scrollAngle - s.scrollShown) * Math.min(1, 0.2 * dt);
       render();
       raf = s.visible && !document.hidden ? requestAnimationFrame(tick) : 0;
     };
@@ -138,8 +153,17 @@ export function ChannelCylinder({ channels }: { channels: ChannelLite[] }) {
     el.addEventListener('mouseenter', enter);
     el.addEventListener('mouseleave', leave);
     render();
-    start();
+    // Start the physics loop once the browser is idle after load, so it never competes with hydration.
+    type IdleWindow = Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
+    const w = window as IdleWindow;
+    let idleId = 0;
+    const kick = () => (idleId = w.requestIdleCallback ? w.requestIdleCallback(start, { timeout: 1500 }) : window.setTimeout(start, 600));
+    if (document.readyState === 'complete') kick();
+    else window.addEventListener('load', kick, { once: true });
     return () => {
+      window.removeEventListener('load', kick);
+      if (w.cancelIdleCallback) w.cancelIdleCallback(idleId);
+      else clearTimeout(idleId);
       cancelAnimationFrame(raf);
       io.disconnect();
       document.removeEventListener('visibilitychange', onVis);
@@ -152,21 +176,47 @@ export function ChannelCylinder({ channels }: { channels: ChannelLite[] }) {
       el.removeEventListener('mouseenter', enter);
       el.removeEventListener('mouseleave', leave);
     };
-  }, [n, step]);
+  }, [n, step, channels]);
 
-  // Scroll-out: the cylinder tilts back, scales to 0.8 and fades.
+  /*
+   * Scroll roll. The hero sits in a tall wrapper ([data-hero-scroll]) with a
+   * CSS-sticky inner screen, so the browser does the pinning (much cheaper
+   * than a GSAP pin on phones). A passive scroll listener maps progress through
+   * the wrapper to one full revolution, so every channel passes the front.
+   */
+  useEffect(() => {
+    const wrap = root.current?.closest<HTMLElement>('[data-hero-scroll]');
+    if (!wrap || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const s = state.current;
+    const onScroll = () => {
+      const r = wrap.getBoundingClientRect();
+      const span = r.height - window.innerHeight;
+      const p = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
+      s.scrollAngle = -p * 360;
+      if (progress.current) progress.current.style.transform = `scaleX(${p})`;
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      s.scrollAngle = 0;
+      s.scrollShown = 0;
+    };
+  }, []);
+
+  // After the roll: the cylinder tilts back and fades, the headline drifts up faster than the page.
   useGSAP(
     () => {
+      const wrap = root.current?.closest('[data-hero-scroll]');
+      if (!wrap) return;
       const mm = gsap.matchMedia();
-      mm.add('(prefers-reduced-motion: no-preference) and (min-width: 768px)', () => {
-        gsap.to('.cyl-scroll', {
-          rotateX: 16,
-          scale: 0.8,
-          autoAlpha: 0,
-          yPercent: -6,
-          ease: 'none',
-          scrollTrigger: { trigger: root.current, start: 'top top+=80', end: 'bottom top+=120', scrub: true },
-        });
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        const copyEl = wrap.querySelector('[data-hero-copy]');
+        const out = gsap.timeline({ scrollTrigger: { trigger: wrap, start: 'bottom bottom', end: 'bottom top+=30%', scrub: true } });
+        out.to('.cyl-scroll', { rotateX: 16, scale: 0.8, autoAlpha: 0, yPercent: -6, ease: 'none' }, 0);
+        if (copyEl) out.to(copyEl, { y: -90, ease: 'none' }, 0);
       });
       return () => mm.revert();
     },
@@ -179,9 +229,9 @@ export function ChannelCylinder({ channels }: { channels: ChannelLite[] }) {
 
   const rotateBy = (dir: 1 | -1) => {
     const s = state.current;
-    const current = s.snap ?? Math.round(s.angle / step) * step;
+    const current = s.snap ?? Math.round((s.angle + s.scrollAngle) / step) * step - s.scrollAngle;
     s.snap = current - dir * step;
-    const next = (((Math.round(-s.snap / step) % n) + n) % n) as number;
+    const next = (((Math.round(-(s.snap + s.scrollAngle) / step) % n) + n) % n) as number;
     setAnnounce(`${channels[next].name}, ${next + 1} of ${n}`);
   };
   const onKeyDown = (e: React.KeyboardEvent) => {
@@ -248,6 +298,18 @@ export function ChannelCylinder({ channels }: { channels: ChannelLite[] }) {
               ))}
             </div>
           </div>
+        </div>
+        <div className="cyl-caption" aria-hidden>
+          <span ref={counter} className="mono text-ink-60">
+            01 / {n}
+          </span>
+          <span ref={caption} className="cyl-caption-name">
+            {channels[0]?.name}
+          </span>
+          <span className="cyl-progress">
+            <span ref={progress} />
+          </span>
+          <span className="mono text-ink-60">Scroll or drag to explore</span>
         </div>
         <p className="sr-only" aria-live="polite">
           {announce}
